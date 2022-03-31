@@ -67,6 +67,7 @@ nodes:
         nodeLeaseDurationSeconds: ${NODE_LEASE_DURATION}
 EOF
 
+cat kind-config.yaml
 
 time kind create cluster --config=kind-config.yaml
 
