@@ -79,6 +79,8 @@ echo "------- kill things -------"
 
 
 time_kill() {
+  # check its running first
+  kubectl wait --for condition=ready node/$1 --timeout=10m
   docker pause $1
   time kubectl wait --for condition=ready=unknown node/$1 --timeout=10m &
   #TODO: wait for a pod to be removed
