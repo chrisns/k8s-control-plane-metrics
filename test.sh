@@ -71,7 +71,6 @@ cat kind-config.yaml
 
 time kind create cluster --config=kind-config.yaml
 
-kubectl get nodes
 docker ps
 
 
@@ -81,10 +80,12 @@ echo "------- kill things -------"
 time_kill() {
   # check its running first
   kubectl wait --for condition=ready node/$1 --timeout=10m
+  kubectl get node $1
   docker pause $1
   time kubectl wait --for condition=ready=unknown node/$1 --timeout=10m &
   #TODO: wait for a pod to be removed
   wait
+  kubectl get node $1
 }
 
 time_kill kind-worker
